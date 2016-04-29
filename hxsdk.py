@@ -16,15 +16,17 @@ class SudokuBoard(list):
         self.setup_initial_board()
             
     def setup_initial_board(self):
-        self.setup_sample_board()
-#         self.setup_empty_board()
+#         self.setup_sample_board_01()
+#         self.setup_sample_board_02()
+#         self.setup_sample_board_03()
+        self.setup_empty_board()
 
     def setup_empty_board(self):
         del self[:]
         for _ in range(len(SudokuBoard.SYMBOLS)):
             self.append([SudokuBoard.EMPTY_POS for _ in range(len(SudokuBoard.SYMBOLS))])
         
-    def setup_sample_board(self):
+    def setup_sample_board_01(self):
         del self[:]
         self.append([' ', ' ', ' ', '6', ' ', '5', ' ', ' ', ' ', ' ', '4', ' ', '1', ' ', ' ', ' '])
         self.append([' ', ' ', ' ', '5', '4', ' ', 'C', ' ', ' ', '1', ' ', 'F', '2', ' ', ' ', ' '])
@@ -42,10 +44,53 @@ class SudokuBoard(list):
         self.append([' ', ' ', ' ', 'A', '5', ' ', '8', '2', '7', ' ', ' ', 'B', 'C', ' ', ' ', ' '])
         self.append([' ', ' ', ' ', '7', ' ', '9', ' ', ' ', ' ', ' ', 'E', ' ', 'B', ' ', ' ', ' '])
         self.append([' ', ' ', ' ', '8', 'C', ' ', ' ', ' ', ' ', ' ', ' ', '4', 'A', ' ', ' ', '3'])
+        
+    def setup_sample_board_02(self):
+        del self[:]
+        self.append(['5', 'C', 'B', 'F',  ' ', ' ', '9', ' ',  ' ', '0', ' ', ' ',  '7', ' ', ' ', 'D'])
+        self.append(['E', '4', '1', '7',  'B', ' ', ' ', 'F',  ' ', ' ', ' ', '3',  ' ', ' ', '2', '0'])
+        self.append(['8', '2', '3', 'D',  'C', ' ', 'E', '0',  '4', 'A', 'B', '5',  '6', ' ', '9', 'F'])
+        self.append(['0', 'A', '6', '9',  '8', '1', '2', ' ',  'F', 'C', '7', ' ',  '5', 'B', '4', '3'])
+
+        self.append(['A', '6', '9', '0',  '7', '2', '5', '4',  'B', 'F', '3', 'D',  '8', 'C', '1', 'E'])
+        self.append(['4', 'F', '5', '3',  ' ', 'C', 'D', 'B',  'E', '1', '0', '8',  '9', '2', ' ', '7'])
+        self.append(['C', 'D', '7', 'B',  ' ', ' ', '0', ' ',  ' ', ' ', ' ', ' ',  'F', ' ', ' ', '5'])
+        self.append(['1', 'E', '2', '8',  '6', '9', ' ', ' ',  '5', '4', 'C', ' ',  ' ', 'D', ' ', 'B'])
+        
+        self.append(['F', ' ', '0', ' ',  ' ', 'D', ' ', ' ',  '8', ' ', '2', 'C',  '3', 'E', 'B', '6'])
+        self.append(['2', ' ', ' ', '1',  ' ', ' ', ' ', 'C',  ' ', ' ', '6', 'F',  'A', '7', 'D', '4'])
+        self.append([' ', ' ', '4', '5',  '2', 'F', '8', 'E',  'A', ' ', ' ', 'B',  '1', '9', '0', 'C'])
+        self.append([' ', 'B', 'C', ' ',  '3', 'A', '6', ' ',  '0', '9', ' ', ' ',  '2', 'F', '5', '8'])
+        
+        self.append(['9', '1', 'D', '4',  'E', '6', 'C', '5',  '7', '2', 'F', ' ',  'B', '3', '8', 'A'])
+        self.append(['7', ' ', 'E', 'C',  '0', 'B', '3', '2',  '1', ' ', '4', ' ',  'D', '6', 'F', '9'])
+        self.append(['B', ' ', 'F', ' ',  ' ', ' ', ' ', ' ',  'C', ' ', 'E', ' ',  '4', '5', '7', '2'])
+        self.append([' ', ' ', ' ', '2',  'F', ' ', '7', '9',  ' ', ' ', ' ', ' ',  'E', '0', 'C', '1'])
+        
+    def setup_sample_board_03(self):
+        del self[:]
+        self.append([' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '])
+        self.append([' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '2', ' ', '8', '3'])
+        self.append([' ', ' ', ' ', ' ', '7', ' ', ' ', ' ', ' ', ' ', ' ', '0', 'B', ' ', ' ', 'F'])
+        self.append([' ', ' ', ' ', ' ', ' ', 'B', '9', ' ', ' ', '1', ' ', ' ', '6', 'A', ' ', 'D'])
+        self.append([' ', ' ', ' ', ' ', ' ', ' ', '4', ' ', ' ', ' ', 'C', ' ', ' ', ' ', ' ', ' '])
+        self.append([' ', ' ', ' ', '7', ' ', ' ', ' ', 'D', ' ', ' ', '2', ' ', 'A', '3', ' ', ' '])
+        self.append([' ', ' ', ' ', ' ', ' ', ' ', ' ', '5', '3', ' ', ' ', ' ', '1', 'B', 'D', '8'])
+        self.append([' ', ' ', ' ', 'F', '8', ' ', ' ', ' ', '1', 'A', 'D', '6', ' ', '9', '2', '0'])
+        self.append([' ', ' ', 'D', '3', ' ', ' ', 'A', ' ', ' ', ' ', ' ', 'B', ' ', ' ', ' ', ' '])
+        self.append([' ', ' ', '0', ' ', ' ', ' ', '1', ' ', ' ', ' ', ' ', 'C', ' ', '4', ' ', ' '])
+        self.append([' ', ' ', 'A', '1', ' ', 'C', ' ', ' ', '0', 'E', ' ', 'D', '5', '6', ' ', '9'])
+        self.append([' ', ' ', '8', '6', '4', ' ', 'E', ' ', ' ', 'F', ' ', '2', ' ', '0', 'C', 'A'])
+        self.append([' ', '7', ' ', ' ', ' ', ' ', 'D', '1', ' ', '2', ' ', 'E', ' ', ' ', '4', ' '])
+        self.append([' ', '8', 'E', '0', ' ', '9', ' ', ' ', 'B', ' ', '6', ' ', ' ', ' ', 'F', ' '])
+        self.append([' ', '1', '5', 'D', 'F', ' ', 'C', '6', ' ', ' ', '3', '4', ' ', '8', ' ', 'E'])
+        self.append([' ', '4', '6', ' ', ' ', '5', ' ', ' ', 'F', ' ', 'A', '7', '9', 'C', ' ', '1'])
+        
     
     def _print(self):
         for i in range(len(SudokuBoard.SYMBOLS)):
             print( str(self[i]) )
+        print()
     
     def get_symbol(self, pos):
         return self[pos[0]][pos[1]]
@@ -59,14 +104,14 @@ class SudokuBoard(list):
                 return False
         return True
             
-    def populate(self):
+    def solve(self):
 #         return self.populate_boxes()
         return self.populate_via_global_min()
     
     def populate_via_global_min(self):
         while not self.is_board_full():
             min_pos = self.get_global_min()
-            if self.fill_in_certain(min_pos) == False:
+            if self.fill_pos(min_pos) == False:
                 return False
         return True
     
@@ -82,14 +127,14 @@ class SudokuBoard(list):
     
     def populate_box_sequencial(self, box_num):
         for position in self.get_positions_from_box(box_num):
-            if self.fill_in_certain(position) == False:
+            if self.fill_pos(position) == False:
                 return False
         return True
             
     def populate_box_from_min(self, box_num):
         while not self.is_box_full(box_num):
             min_pos = self.get_min_from_box(box_num)
-            if self.fill_in_certain(min_pos) == False:
+            if self.fill_pos(min_pos) == False:
                 return False
         return True
     
@@ -126,12 +171,17 @@ class SudokuBoard(list):
     def get_all_positions(self):
         return [ (i,j) for i in range(len(SudokuBoard.SYMBOLS)) for j in range(len(SudokuBoard.SYMBOLS)) ]
     
+    def get_all_positions_random(self):
+        pos_list = self.get_all_positions()
+        random.shuffle(pos_list)
+        return pos_list
+    
     def fill_pos(self, position):
         if not self.is_pos_empty(position):
             return True
         else:
-            return self.fill_in_certain(position)
-#             return self.fill_in_random(position)
+#             return self.fill_in_certain(position)
+            return self.fill_in_random(position)
     
     def fill_in_certain(self, position):
         candidates = self.get_candidates(position)
@@ -140,14 +190,14 @@ class SudokuBoard(list):
             self[position[0]][position[1]] = candidates[0]
             return True
         else:
-            print(position)
+#             print(position) #debug
             return False
     
     def fill_in_random(self, position):
         candidates = self.get_candidates(position)
         
         if len(candidates) < 1:
-            print(position)
+#             print(position) #debug
             return False
         else:
             i = random.randint(0,len(candidates)-1)
@@ -205,8 +255,59 @@ class SudokuBoard(list):
         
     def get_same_row(self, pos):
         return [ (pos[0], i) for i in range(len(SudokuBoard.SYMBOLS)) ]
+    
+    def clear_symbol(self, pos):
+        self[pos[0]][pos[1]] = SudokuBoard.EMPTY_POS
+        
+    def set_symbol(self, pos, symbol):
+        self[pos[0]][pos[1]] = symbol
+    
+    def minimize(self):
+#         self.minimize_sequential()
+        self.minimize_random()
+        
+    def minimize_sequential(self):
+        for pos in self.get_all_positions():
+            if self.is_pos_empty(pos):
+                continue
+            test_board = copy.deepcopy(self)
+            test_board.clear_symbol(pos)
+            if test_board.solve():
+                self.clear_symbol(pos)
+    
+    def minimize_random(self):
+        for pos in self.get_all_positions_random():
+            if self.is_pos_empty(pos):
+                continue
+            test_board = copy.deepcopy(self)
+            test_board.clear_symbol(pos)
+            if test_board.solve():
+                self.clear_symbol(pos)
+#                 self._print() # debug
+    
+    def empty_count(self):
+        count = 0
+        for pos in self.get_all_positions():
+            if self.is_pos_empty(pos):
+                count += 1
+        return count
+    
+    def filled_count(self):
+        count = 0
+        for pos in self.get_all_positions():
+            if not self.is_pos_empty(pos):
+                count += 1
+        return count
+    
+    def generate_random_puzzle(self):
+        b.setup_empty_board()
+        while not b.solve():
+            b.setup_empty_board()
+        print("Solution:")
+        self._print()
+        self.minimize()
 
 b = SudokuBoard()
-while not b.populate():
-    b.setup_initial_board()
+b._print()
+b.generate_random_puzzle()
 b._print()
