@@ -1,11 +1,12 @@
-'''
+"""
 Created on 27 de abr de 2016
 
 @author: fvj
-'''
+"""
 import copy
-import random
 import math
+import random
+
 
 class SudokuBoard(list):
     EMPTY_POS = ' '
@@ -13,19 +14,22 @@ class SudokuBoard(list):
 #     SYMBOLS = ['1', '2', '3', '4', '5', '6', '7', '8', '9']
     
     def __init__(self):
+        super().__init__()
         self.setup_initial_board()
-            
+
     def setup_initial_board(self):
-#         self.setup_sample_board_01()
-#         self.setup_sample_board_02()
-#         self.setup_sample_board_03()
+        # self.setup_sample_board_01()
+        # self.setup_sample_board_02()
+        # self.setup_sample_board_03()
         self.setup_empty_board()
 
     def setup_empty_board(self):
         del self[:]
         for _ in range(len(SudokuBoard.SYMBOLS)):
-            self.append([SudokuBoard.EMPTY_POS for _ in range(len(SudokuBoard.SYMBOLS))])
-        
+            self.append(
+                [SudokuBoard.EMPTY_POS for _ in range(len(SudokuBoard.SYMBOLS))]
+            )
+
     def setup_sample_board_01(self):
         del self[:]
         self.append([' ', ' ', ' ', '6', ' ', '5', ' ', ' ', ' ', ' ', '4', ' ', '1', ' ', ' ', ' '])
@@ -85,78 +89,78 @@ class SudokuBoard(list):
         self.append([' ', '8', 'E', '0', ' ', '9', ' ', ' ', 'B', ' ', '6', ' ', ' ', ' ', 'F', ' '])
         self.append([' ', '1', '5', 'D', 'F', ' ', 'C', '6', ' ', ' ', '3', '4', ' ', '8', ' ', 'E'])
         self.append([' ', '4', '6', ' ', ' ', '5', ' ', ' ', 'F', ' ', 'A', '7', '9', 'C', ' ', '1'])
-        
-    
+
     def _print(self):
         for i in range(len(SudokuBoard.SYMBOLS)):
-            print( str(self[i]) )
+            print(str(self[i]))
         print()
-    
+
     def get_symbol(self, pos):
         return self[pos[0]][pos[1]]
-    
+
     def is_pos_empty(self, pos):
         return self.get_symbol(pos) == SudokuBoard.EMPTY_POS
-    
+
     def is_board_full(self):
         for pos in self.get_all_positions():
             if self.is_pos_empty(pos):
                 return False
         return True
-            
+
     def solve(self):
-#         return self.populate_boxes()
+        # return self.populate_boxes()
         return self.populate_via_global_min()
-    
+
     def populate_via_global_min(self):
         while not self.is_board_full():
             min_pos = self.get_global_min()
             if self.fill_pos(min_pos) == False:
                 return False
         return True
-    
+
     def populate_boxes(self):
         for i in range(len(SudokuBoard.SYMBOLS)):
-#             if self.populate_box_sequencial(i) == False:
-            if self.populate_box_from_min(i) == False:
+            # if self.populate_box_sequencial(i) is False:
+            if self.populate_box_from_min(i) is False:
                 return False
         return True
-            
+
     def get_box_size(self):
         return int(math.sqrt(len(SudokuBoard.SYMBOLS)))
-    
+
     def populate_box_sequencial(self, box_num):
         for position in self.get_positions_from_box(box_num):
-            if self.fill_pos(position) == False:
+            if self.fill_pos(position) is False:
                 return False
         return True
-            
+
     def populate_box_from_min(self, box_num):
         while not self.is_box_full(box_num):
             min_pos = self.get_min_from_box(box_num)
-            if self.fill_pos(min_pos) == False:
+            if self.fill_pos(min_pos) is False:
                 return False
         return True
-    
+
     def is_box_empty(self, bom_num):
         for pos in self.get_positions_from_box(bom_num):
             if not self.is_pos_empty(pos):
                 return False
         return True
-    
+
     def is_box_full(self, box_num):
         for pos in self.get_positions_from_box(box_num):
             if self.is_pos_empty(pos):
                 return False
         return True
-    
+
     def get_min_from_box(self, box_num):
         return self.get_min(self.get_positions_from_box(box_num))
-    
+
     def get_global_min(self):
         return self.get_min(self.get_all_positions())
-    
+
     def get_min(self, position_list):
+        min_pos = None
         min_c = len(SudokuBoard.SYMBOLS)
         for pos in position_list:
             if not self.is_pos_empty(pos):
@@ -166,23 +170,26 @@ class SudokuBoard(list):
                 min_c = count
                 min_pos = pos
         return min_pos
-        
-    
+
     def get_all_positions(self):
-        return [ (i,j) for i in range(len(SudokuBoard.SYMBOLS)) for j in range(len(SudokuBoard.SYMBOLS)) ]
-    
+        return [
+            (i, j)
+            for i in range(len(SudokuBoard.SYMBOLS))
+            for j in range(len(SudokuBoard.SYMBOLS))
+        ]
+
     def get_all_positions_random(self):
         pos_list = self.get_all_positions()
         random.shuffle(pos_list)
         return pos_list
-    
+
     def fill_pos(self, position):
         if not self.is_pos_empty(position):
             return True
         else:
-#             return self.fill_in_certain(position)
+            # return self.fill_in_certain(position)
             return self.fill_in_random(position)
-    
+
     def fill_in_certain(self, position):
         candidates = self.get_candidates(position)
 
@@ -190,82 +197,85 @@ class SudokuBoard(list):
             self[position[0]][position[1]] = candidates[0]
             return True
         else:
-#             print(position) #debug
+            # print(position) #debug
             return False
-    
+
     def fill_in_random(self, position):
         candidates = self.get_candidates(position)
-        
+
         if len(candidates) < 1:
-#             print(position) #debug
+            # print(position) #debug
             return False
         else:
-            i = random.randint(0,len(candidates)-1)
+            i = random.randint(0, len(candidates) - 1)
             self[position[0]][position[1]] = candidates[i]
             return True
-    
-    
+
     def get_candidates(self, position):
         candidates = copy.deepcopy(SudokuBoard.SYMBOLS)
-        
+
         self.remove_same_row(candidates, position)
         self.remove_same_col(candidates, position)
         self.remove_same_box(candidates, position)
-        
+
         return candidates
-    
+
     def count_candidates(self, position):
         return len(self.get_candidates(position))
-            
+
     def remove_same_row(self, candidates, position):
         for row_pos in self.get_same_row(position):
             s = self.get_symbol(row_pos)
             if s in candidates:
                 candidates.remove(s)
-    
-    def remove_same_col(self, candidates, position):           
+
+    def remove_same_col(self, candidates, position):
         for col_pos in self.get_same_col(position):
             s = self.get_symbol(col_pos)
             if s in candidates:
                 candidates.remove(s)
-    
+
     def remove_same_box(self, candidates, position):
         for box_pos in self.get_same_box(position):
             s = self.get_symbol(box_pos)
             if s in candidates:
                 candidates.remove(s)
-                
+
     def get_positions_from_box(self, box_num):
         box_size = self.get_box_size()
-        a = int(box_num/box_size)
-        b = box_num%box_size
-        return [ (box_num+box_size*a, j+box_size*b) for box_num in range(box_size) for j in range(box_size) ]
-        
+        a = int(box_num / box_size)
+        b = box_num % box_size
+        return [
+            (box_num + box_size * a, j + box_size * b)
+            for box_num in range(box_size)
+            for j in range(box_size)
+        ]
+
     def get_box_from_position(self, pos):
         box_size = self.get_box_size()
-        a = int(pos[0]/box_size)
-        b = int(pos[1]/box_size)
-        return b+a*box_size
-    
+        a = int(pos[0] / box_size)
+        b = int(pos[1] / box_size)
+        return b + a * box_size
+
     def get_same_box(self, pos):
         return self.get_positions_from_box(self.get_box_from_position(pos))
-    
+
     def get_same_col(self, pos):
-        return [ (i, pos[1]) for i in range(len(SudokuBoard.SYMBOLS)) ]
-        
+        return [(i, pos[1]) for i in range(len(SudokuBoard.SYMBOLS))]
+
     def get_same_row(self, pos):
-        return [ (pos[0], i) for i in range(len(SudokuBoard.SYMBOLS)) ]
-    
+        return [(pos[0], i) for i in range(len(SudokuBoard.SYMBOLS))]
+
     def clear_symbol(self, pos):
         self[pos[0]][pos[1]] = SudokuBoard.EMPTY_POS
-        
+
     def set_symbol(self, pos, symbol):
         self[pos[0]][pos[1]] = symbol
-    
+
     def minimize(self):
-#         self.minimize_sequential()
+        # self.minimize_sequential()
         self.minimize_random()
-        
+
     def minimize_sequential(self):
         for pos in self.get_all_positions():
             if self.is_pos_empty(pos):
@@ -274,7 +284,7 @@ class SudokuBoard(list):
             test_board.clear_symbol(pos)
             if test_board.solve():
                 self.clear_symbol(pos)
-    
+
     def minimize_random(self):
         for pos in self.get_all_positions_random():
             if self.is_pos_empty(pos):
@@ -283,31 +293,32 @@ class SudokuBoard(list):
             test_board.clear_symbol(pos)
             if test_board.solve():
                 self.clear_symbol(pos)
-#                 self._print() # debug
-    
+                # self._print() # debug
+
     def empty_count(self):
         count = 0
         for pos in self.get_all_positions():
             if self.is_pos_empty(pos):
                 count += 1
         return count
-    
+
     def filled_count(self):
         count = 0
         for pos in self.get_all_positions():
             if not self.is_pos_empty(pos):
                 count += 1
         return count
-    
+
     def generate_random_puzzle(self):
-        b.setup_empty_board()
-        while not b.solve():
-            b.setup_empty_board()
+        self.setup_empty_board()
+        while not self.solve():
+            self.setup_empty_board()
         print("Solution:")
         self._print()
         self.minimize()
 
-b = SudokuBoard()
-b._print()
-b.generate_random_puzzle()
-b._print()
+
+if __name__ == "__main__":
+    b = SudokuBoard()
+    b.generate_random_puzzle()
+    b._print()
