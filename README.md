@@ -1,5 +1,7 @@
 # HexaSudoku
 
+![Space Invaders Puzzle](space_invaders.png)
+
 This project creates and solves Sudoku puzzles with different sizes.
 
 It can create 16x16 grids that uses all 16 hexadecimal digits (`0-9` + `A-F`) or even bigger grids with custom symbols.
